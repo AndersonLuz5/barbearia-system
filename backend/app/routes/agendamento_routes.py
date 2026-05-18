@@ -3,7 +3,11 @@ from sqlalchemy.orm import Session
 
 from app.core.database import SessionLocal
 
-from app.schemas.agendamento import AgendamentoCreate, AgendamentoResponse
+from app.schemas.agendamento import (
+    AgendamentoCreate,
+    AgendamentoResponse,
+    AgendamentoCancel,
+)
 
 from app.services.barbearia_service import BarbeariaService
 
@@ -31,3 +35,10 @@ def listar(db: Session = Depends(get_db)):
 def criar(dados: AgendamentoCreate, db: Session = Depends(get_db)):
 
     return BarbeariaService.criar_agendamento(db, dados)
+
+
+@router.post("/{agendamento_id}/cancelar", response_model=AgendamentoResponse)
+def cancelar(
+    agendamento_id: int, dados: AgendamentoCancel, db: Session = Depends(get_db)
+):
+    return BarbeariaService.cancelar_agendamento(db, agendamento_id)

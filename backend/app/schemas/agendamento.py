@@ -9,6 +9,17 @@ class AgendamentoCreate(BaseModel):
     data_hora: datetime
 
 
+class AgendamentoCancel(BaseModel):
+    """Cancelamento do agendamento.
+
+    Regras do negócio (fixas):
+    - status = "cancelado"
+    - multa = 0.0
+    """
+
+    pass
+
+
 class AgendamentoResponse(BaseModel):
 
     id: int
